@@ -21,7 +21,10 @@ class Sms extends Component
 		if (!$this->service)
 			throw new InvalidConfigException('The "service" property must be set.');
 
-		$this->service = Instance::ensure($this->service, SmsServiceInterface);
+		$this->service = \Yii::createObject($this->service);
+
+		if (!$this->service instanceof SmsServiceInterface)
+			throw new InvalidConfigException('The "service" property is not implements SmsServiceInterfce.');
 	}
 
 	/**
